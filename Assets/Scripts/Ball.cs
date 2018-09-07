@@ -128,12 +128,12 @@ public class Ball : MonoBehaviour {
                 collidedWithPlayer = false;
                 float relativeIntersectY = paddlePlayer.transform.localPosition.y - transform.localPosition.y;
                 float normalizedRelativeIntersectionY = (relativeIntersectY / (playerPaddleHeight) / 1.8f);
-                bounceAngle = normalizedRelativeIntersectionY * (maxAngle * Mathf.Deg2Rad);
+                bounceAngle = normalizedRelativeIntersectionY * (maxAngle * Mathf.Deg2Rad * 2);
             } else if(collidedWithComputer){
                 collidedWithComputer = false;
                 float relativeIntersectY = paddleComputer.transform.localPosition.y - transform.localPosition.y;
                 float normalizedRelativeIntersectionY = (relativeIntersectY / (computerPaddleHeight) / 1.8f);
-                bounceAngle = normalizedRelativeIntersectionY * (maxAngle * Mathf.Deg2Rad);
+                bounceAngle = normalizedRelativeIntersectionY * (maxAngle * Mathf.Deg2Rad * 2);
             } else if(collidedWithWall){
                 collidedWithWall = false;
                 bounceAngle = -bounceAngle;
