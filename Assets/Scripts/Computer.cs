@@ -9,38 +9,30 @@ public class Computer : MonoBehaviour {
     public float bottomBounds = -8.3f;
     public Vector2 startingPosition = new Vector2(13.0f, 0.0f);
 
-    void Start()
-    {
+    private GameObject ball;
+    private Vector2 ballPos;
+
+    void Start(){
         transform.localPosition = (Vector3)startingPosition;
     }
 
-    void Update()
-    {
-        CheckUserInput();
+    void Update(){
+        Move();
     }
 
-    void CheckUserInput()
-    {
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            if (transform.localPosition.y >= topBounds)
-            {
-                transform.localPosition = new Vector3(transform.localPosition.x, topBounds, transform.localPosition.z);
+    void Move(){
+        if (!ball)
+            ball = GameObject.FindGameObjectWithTag("ball");
+
+        if(ball.GetComponent<Ball>().ballDirection == Vector2.right){
+            ballPos = ball.transform.localPosition;
+
+            if(transform.localPosition.y > bottomBounds && ballPos.y < transform.localPosition.y){
+                transform.localPosition += new Vector3(0, -moveSpeed * Time.deltaTime, 0);
             }
-            else
-            {
-                transform.localPosition += Vector3.up * moveSpeed * Time.deltaTime;
-            }
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            if (transform.localPosition.y <= bottomBounds)
-            {
-                transform.localPosition = new Vector3(transform.localPosition.x, bottomBounds, transform.localPosition.z);
-            }
-            else
-            {
-                transform.localPosition += Vector3.down * moveSpeed * Time.deltaTime;
+
+            if(transform.localPosition.y < topBounds && ballPos.y > transform.localPosition.y){
+                transform.localPosition += new Vector3(0, moveSpeed * Time.deltaTime, 0);
             }
         }
     }
